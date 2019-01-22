@@ -38,6 +38,8 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     List<Author> findbySql(String nickName);
 
 
+    @Query("select a from Author a where a.phone like %#{#author.phone}% and a.nickName like %#{#author.nickName}% ")
+    List<Author> findByPhoneLikeAndNickNameLike(Author author);
     @Transactional
     @Modifying
     @Query("update Author a set a.nickName = ?1 where a.phone = ?2")
